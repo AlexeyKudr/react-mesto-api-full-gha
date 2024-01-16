@@ -1,0 +1,17 @@
+.popup__input_type_title {
+    margin-bottom: 35px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 358px;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    color: black;
+}
+
+@media screen and (max-width: 747px) {
+    .popup__input_type_title {
+        max-width: 238px;
+    }
+}

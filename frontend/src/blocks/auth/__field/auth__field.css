@@ -1,0 +1,4 @@
+.auth__field {
+    display: grid;
+    gap: 30px;
+}
