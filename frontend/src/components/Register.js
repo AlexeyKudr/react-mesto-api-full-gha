@@ -22,6 +22,7 @@ function Register({ onRegister }) {
         }
         onRegister(email, password).then(() => {
           navigate("/sign-in");
+          console.log(onRegister);
         });
     }
       

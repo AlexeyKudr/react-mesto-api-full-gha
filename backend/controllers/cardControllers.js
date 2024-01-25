@@ -7,10 +7,10 @@ const ForbiddenError = require('../middlewars/ForbiddenError');
 
 const getCards = async (req, res, next) => {
   try {
-    const cards = await card.find({});
+    const newCard = await card.find({});
     res
       .status(OK)
-      .json({ data: cards });
+      .send(newCard);
   } catch (error) {
     next(error);
   }
@@ -21,7 +21,13 @@ const createCard = async (req, res, next) => {
   const owner = req.user._id;
   try {
     const newCard = await card.create({ name, link, owner });
-    return res.status(OK).send(newCard);
+    return res.status(OK).send({
+      _id: newCard._id,
+      name: newCard.name,
+      link: newCard.link,
+      owner: newCard.owner,
+      likes: newCard.likes,
+    });
   } catch (error) {
     if (error.name === 'ValidationError') {
       return next(new BadRequestError(error.message));

@@ -1,13 +1,13 @@
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
-const { JWT_SECRET, NODE_ENV } = process.env;
+// const { JWT_SECRET, NODE_ENV } = process.env;
 
-const generateJwtToken = (payload) => {
-  const token = jwt.sign(payload, NODE_ENV === 'production' ? JWT_SECRET : 'secret_key', {
-    expiresIn: '7d',
-  });
+// const generateJwtToken = (payload) => {
+//   const token = jwt.sign(payload, NODE_ENV === 'production' ? JWT_SECRET : 'secret-key', {
+//     expiresIn: '7d',
+//   });
 
-  return token;
-};
+//   return token;
+// };
 
-module.exports = generateJwtToken;
+// module.exports = generateJwtToken;

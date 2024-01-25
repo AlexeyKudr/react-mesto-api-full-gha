@@ -1,21 +1,20 @@
 /* eslint-disable consistent-return */
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const UnAuthorized = require('./Unauthorized');
 
 const auth = (req, res, next) => {
+  // const token = req.cookies.jwt;
+  const { authorization } = req.headers;
+  if (!authorization.startsWith('Bearer')) {
+    throw new UnAuthorized('Необходима авторизация');
+  }
+  const token = authorization.replace('Bearer ', '');
   let payload;
   try {
-    const token = req.cookies.jwt;
-    if (!token) {
-      throw new UnAuthorized('Необходима авторизация');
-    }
-    const validToken = token.replace('Bearer ', '');
-    payload = jwt.verify(validToken, 'secret_key');
+    payload = jwt.verify(token, 'secret-key');
   } catch (error) {
-    if (error.name === 'JsonWebTokenError') {
-      return next(new UnAuthorized('С токеном что-то не так'));
-    }
-    return next(error);
+    next(new UnAuthorized('Авторизацияfff'));
   }
   req.user = payload;
   next();

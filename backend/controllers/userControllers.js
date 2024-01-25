@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 const { OK, MONGO_DUPLICATE_ERROR_CODE } = require('../utils/const');
 const BadRequestError = require('../middlewars/BadRequestError');
 const DuplicateError = require('../middlewars/DuplicateError');
 const UnAuthorized = require('../middlewars/Unauthorized');
 const NotFoundError = require('../middlewars/NotFoundError');
-const generateJwtToken = require('../utils/generateJwt');
+// const generateJwtToken = require('../utils/generateJwt');
 
 const getUsers = async (req, res, next) => {
   try {
@@ -76,6 +77,7 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+// eslint-disable-next-line consistent-return
 const updateAvatar = async (req, res, next) => {
   try {
     const UpdateUser = await user.findByIdAndUpdate(
@@ -87,10 +89,15 @@ const updateAvatar = async (req, res, next) => {
       .status(OK)
       .json(UpdateUser);
   } catch (error) {
-    return next(error);
+    if (error.name === 'ValidationError') {
+      next(new BadRequestError('Неверный формат входных данных'));
+    } else {
+      return next(error);
+    }
   }
 };
 
+// eslint-disable-next-line consistent-return
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -102,19 +109,18 @@ const login = async (req, res, next) => {
     if (!isMatch) {
       throw new UnAuthorized('Неверные почта или пароль');
     }
-    const token = generateJwtToken({
-      _id: User._id,
-    });
-    res.cookie('jwt', token, {
-      maxAge: 3600000 * 24 * 7,
-      httpOnly: true,
-      sameSite: true,
-    });
+    const token = jwt.sign({ _id: User._id }, 'secret-key');
     return res
+    // .cookie('jwt', token, {
+    //   maxAge: 3600000 * 24 * 7,
+    //   httpOnly: true,
+    //   sameSite: true,
+    // });
+    // return res
       .status(OK)
-      .send({ data: { email: User.email, id: User._id } });
+      .send({ token });
   } catch (error) {
-    return next(error);
+    next();
   }
 };
 
@@ -129,7 +135,13 @@ const currentUser = async (req, res, next) => {
     }
     return res
       .status(OK)
-      .send({ User });
+      .send({
+        name: User.name,
+        email: User.email,
+        about: User.about,
+        avatar: User.avatar,
+        _id: User._id,
+      });
   } catch (error) {
     return next(error);
   }
