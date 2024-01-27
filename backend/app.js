@@ -10,10 +10,9 @@ const cors = require('./middlewars/cors');
 const { requestLogger, errorLogger } = require('./middlewars/logger');
 
 const app = express();
-const PORT = 3000;
-
+const { PORT, MONGO_DB } = process.env;
 mongoose
-  .connect('mongodb://127.0.0.1:27017/mestodb', {
+  .connect(MONGO_DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
