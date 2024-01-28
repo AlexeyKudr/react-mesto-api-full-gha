@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const UnAuthorized = require('./Unauthorized');
 
 const auth = (req, res, next) => {
-  // const token = req.cookies.jwt;
   const { authorization } = req.headers;
   if (!authorization.startsWith('Bearer')) {
     throw new UnAuthorized('Необходима авторизация');

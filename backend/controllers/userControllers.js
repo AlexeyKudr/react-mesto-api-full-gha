@@ -7,7 +7,6 @@ const BadRequestError = require('../middlewars/BadRequestError');
 const DuplicateError = require('../middlewars/DuplicateError');
 const UnAuthorized = require('../middlewars/Unauthorized');
 const NotFoundError = require('../middlewars/NotFoundError');
-// const generateJwtToken = require('../utils/generateJwt');
 
 const getUsers = async (req, res, next) => {
   try {
@@ -111,12 +110,6 @@ const login = async (req, res, next) => {
     }
     const token = jwt.sign({ _id: User._id }, 'secret-key');
     return res
-    // .cookie('jwt', token, {
-    //   maxAge: 3600000 * 24 * 7,
-    //   httpOnly: true,
-    //   sameSite: true,
-    // });
-    // return res
       .status(OK)
       .send({ token });
   } catch (error) {
