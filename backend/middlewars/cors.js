@@ -5,6 +5,10 @@ const allowedCors = [
   'http://localhost:3001',
   'http://localhost:3000/users/me',
   'http://localhost:3000/cards',
+  'https://api.alexeykudr.nomoredomainsmonster.ru',
+  'http://api.alexeykudr.nomoredomainsmonster.ru',
+  'https://alexeykudr.nomoredomainsmonster.ru',
+  'http://alexeykudr.nomoredomainsmonster.ru',
 ];
 
 // eslint-disable-next-line consistent-return
