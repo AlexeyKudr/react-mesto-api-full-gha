@@ -113,7 +113,7 @@ const login = async (req, res, next) => {
       .status(OK)
       .send({ token });
   } catch (error) {
-    next();
+    next(error);
   }
 };
 

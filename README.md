@@ -5,12 +5,12 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/...
+Адрес репозитория: https://github.com/AlexeyKudr/react-mesto-api-full-gha
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP 62.84.115.133
 
-Frontend https://...
+Frontend https://alexeykudr.nomoredomainsmonster.ru
 
-Backend https://...
+Backend https://api.alexeykudr.nomoredomainsmonster.ru
