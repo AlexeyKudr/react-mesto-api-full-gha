@@ -1,4 +1,4 @@
-.auth__login {
+.authorization__login {
     color: #fff;
     font-size: 14px;
     line-height: 17px;
@@ -6,7 +6,8 @@
     text-decoration: none;
   }
 
-  .auth__login:hover {
+  .authorization
+  __login:hover {
     opacity: 0.6;
     cursor: pointer;
   }

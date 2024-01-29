@@ -30,17 +30,6 @@ function App() {
   const isSomePopupOpen = isEditProfilePopupOpen || isAddPlacePopupOpen || isEditAvatarPopupOpen || !!selectedCard.link;
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   Promise.all([api.getUserInfo(), api.getInitialCards()])
-  //     .then(([userData, cardsArr]) => {
-  //       setCurrentUser(userData);
-  //       setCards(cardsArr);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }, [loggedIn]);
-
   useEffect(() => {
     if (loggedIn) {
       api

@@ -1,4 +1,4 @@
-.auth__submit {
+.authorization__submit {
   display: flex;
   margin: 216px 0 0;
   padding: 0;
@@ -11,7 +11,7 @@
   border-radius: 2px;
   }
 
-  .auth__submit:hover {
+  .authorization__submit:hover {
     opacity: 0.6;
     cursor: pointer;
   };
