@@ -29,8 +29,8 @@ function Login({ onLogin }) {
     return(
         <div className="authorization">
             <h2 className="authorization__header">Вход</h2>
-            <form className="authorization__form" onSubmit={handleSubmit}>
-              <div className="authorization__field">
+            <form className="authorization__block" onSubmit={handleSubmit}>
+              <div className="authorization__inputs">
                 <input type="email" id="email" name="email" placeholder="Email" className="authorization__input" value={email} onChange={handleEmailChange} required />
                 <input type="password" id="password"  name="password" placeholder="Пароль" className="authorization__input" value={password} onChange={handlePasswordChange} required />
                 <button type="submit" className="authorization__submit">Войти</button>

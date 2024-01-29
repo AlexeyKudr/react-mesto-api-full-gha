@@ -1,4 +1,4 @@
-.authorization__login {
+.authorization__enter {
     color: #fff;
     font-size: 14px;
     line-height: 17px;
@@ -6,8 +6,7 @@
     text-decoration: none;
   }
 
-  .authorization
-  __login:hover {
+  .authorization__enter:hover {
     opacity: 0.6;
     cursor: pointer;
   }
