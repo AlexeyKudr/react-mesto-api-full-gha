@@ -4,11 +4,11 @@
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/authorization/authorization.css);
+@import url(./blocks/authorization/__header/authorization__header.css);
 @import url(./blocks/authorization/__form/authorization__form.css);
 @import url(./blocks/authorization/__field/authorization__field.css);
 @import url(./blocks/authorization/__input/authorization__input.css);
 @import url(./blocks/authorization/__submit/authorization__submit.css);
-@import url(./blocks/authorization/__title/authorization__title.css);
 @import url(./blocks/authorization/__register/authorization__register.css);
 @import url(./blocks/authorization/__login/authorization__login.css);
 @import url(./blocks/profile/profile.css);

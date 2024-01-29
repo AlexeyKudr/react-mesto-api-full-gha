@@ -28,7 +28,7 @@ function Register({ onRegister }) {
       
     return(
         <div className="authorization">
-            <h2 className="authorization__title">Регистрация</h2>
+            <h2 className="authorization__header">Регистрация</h2>
             <form  className="authorization__form" onSubmit={handleSubmit}>
             <div className="authorization__field">
                 <input type="email" id="email" name="email" placeholder="Email" className="authorization__input" value={email} onChange={handleEmailChange} required />
