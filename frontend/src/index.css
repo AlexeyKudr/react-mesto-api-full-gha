@@ -5,7 +5,7 @@
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/authorization/authorization.css);
 @import url(./blocks/authorization/__header/authorization__header.css);
-@import url(./blocks/authorization/__block/authorization__block.css);
+@import url(./blocks/authorization/__form/authorization__form.css);
 @import url(./blocks/authorization/__inputs/authorization__inputs.css);
 @import url(./blocks/authorization/__input/authorization__input.css);
 @import url(./blocks/authorization/__submit/authorization__submit.css);
