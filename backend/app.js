@@ -26,11 +26,11 @@ app.get('/crash-test', () => {
   }, 0);
 });
 app.use(router);
-app.use(errorLogger);
-app.use(celebrateErrors());
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
+app.use(errorLogger);
+app.use(celebrateErrors());
 app.use(errors);
 
 app.listen(PORT, () => {

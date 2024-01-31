@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { CastError } = require('mongoose').Error;
 const card = require('../models/card');
 const { OK } = require('../utils/const');
 const BadRequestError = require('../middlewars/BadRequestError');
@@ -36,24 +37,43 @@ const createCard = async (req, res, next) => {
   }
 };
 
-const deleteCard = (req, res, next) => {
-  const { cardId } = req.params;
-  return card.findById(cardId)
-    .then((Card) => {
-      if (!Card) {
-        throw new NotFoundError('Карточка не найдена.');
-      } else if (Card.owner.toString() !== req.user._id) {
-        throw new ForbiddenError('Недостаточно прав для удаления');
-      }
-      return card.findByIdAndDelete(cardId)
-        .then(() => res.send({ message: 'Карточка успешно удалена' }));
-    })
-    .catch((error) => {
-      if (error.name === 'CastError') {
-        next(new BadRequestError('Некорректный ID карточки'));
-      }
-      next(error);
-    });
+// const deleteCard = (req, res, next) => {
+//   const { cardId } = req.params;
+//   return card.findById(cardId)
+//     .then((Card) => {
+//       if (!Card) {
+//         throw new NotFoundError('Карточка не найдена.');
+//       } else if (Card.owner.toString() !== req.user._id) {
+//         throw new ForbiddenError('Недостаточно прав для удаления');
+//       }
+//       return card.findByIdAndDelete(cardId)
+//         .then(() => res.send({ message: 'Карточка успешно удалена' }));
+//     })
+//     .catch((error) => {
+//       if (error.name === 'CastError') {
+//         next(new BadRequestError('Некорректный ID карточки'));
+//       }
+//       next(error);
+//     });
+// };
+
+const deleteCard = async (req, res, next) => {
+  try {
+    const Card = await card.findById(req.params.cardId);
+    if (!Card) {
+      throw new NotFoundError('Карточка не найдена.');
+    }
+    if (Card.owner.toString() !== req.user._id) {
+      return next(new ForbiddenError('Недостаточно прав для удаления'));
+    }
+    await Card.deleteOne(req.params.cardId);
+    return res.send({ message: 'Карточка удалена' });
+  } catch (err) {
+    if (err instanceof CastError) {
+      return next(new BadRequestError('Некорректный ID карточки'));
+    }
+    return next(err);
+  }
 };
 
 const likeCard = async (req, res, next) => {

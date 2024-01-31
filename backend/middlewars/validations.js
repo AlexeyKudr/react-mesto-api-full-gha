@@ -27,14 +27,14 @@ const userByIdValid = celebrate({
 
 const updateUserValid = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30),
   }),
 });
 
 const updateAvatarValid = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().pattern(urlReg),
+    avatar: Joi.string().required().pattern(urlReg),
   }),
 });
 
@@ -45,13 +45,7 @@ const createCardValid = celebrate({
   }),
 });
 
-const likeCardValid = celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().length(24).required(),
-  }),
-});
-
-const deleteCardValid = celebrate({
+const cardValid = celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().hex().length(24).required(),
   }),
@@ -64,6 +58,5 @@ module.exports = {
   updateUserValid,
   updateAvatarValid,
   createCardValid,
-  deleteCardValid,
-  likeCardValid,
+  cardValid,
 };
