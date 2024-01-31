@@ -67,7 +67,7 @@ const updateUser = async (req, res, next) => {
       req.user._id,
       { $set: req.body },
       { new: true, runValidators: true },
-    ).orFail(new Error('Запрашиваемый пользователь не найден'));
+    ).orFail(new NotFoundError('Запрашиваемый пользователь не найден'));
     return res
       .status(OK)
       .json(UpdateUser);
@@ -83,7 +83,7 @@ const updateAvatar = async (req, res, next) => {
       req.user._id,
       { avatar: req.body.avatar },
       { new: true, runValidators: true },
-    ).orFail(new Error('Запрашиваемый пользователь не найден'));
+    ).orFail(new NotFoundError('Запрашиваемый пользователь не найден'));
     return res
       .status(OK)
       .json(UpdateUser);
@@ -120,12 +120,8 @@ const login = async (req, res, next) => {
 const currentUser = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    const User = await user.findById(userId);
-    if (!User) {
-      return res
-        .status(NotFoundError)
-        .send({ message: 'Пользователь не найден' });
-    }
+    const User = await user.findById(userId)
+      .orFail(() => next(new NotFoundError('Запрашиваемый пользователь не найден')));
     return res
       .status(OK)
       .send({
