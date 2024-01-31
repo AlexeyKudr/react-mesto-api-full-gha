@@ -8,6 +8,8 @@ const DuplicateError = require('../middlewars/DuplicateError');
 const UnAuthorized = require('../middlewars/Unauthorized');
 const NotFoundError = require('../middlewars/NotFoundError');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const getUsers = async (req, res, next) => {
   try {
     const Users = await user.find({});
@@ -108,7 +110,7 @@ const login = async (req, res, next) => {
     if (!isMatch) {
       throw new UnAuthorized('Неверные почта или пароль');
     }
-    const token = jwt.sign({ _id: User._id }, 'secret-key');
+    const token = jwt.sign({ _id: User._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
     return res
       .status(OK)
       .send({ token });
