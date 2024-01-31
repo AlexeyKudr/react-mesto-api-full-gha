@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const { CastError } = require('mongoose').Error;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const user = require('../models/user');
@@ -26,11 +26,11 @@ const getUserById = async (req, res, next) => {
     if (!User) {
       return next(new NotFoundError('Пользователь не найден'));
     }
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      throw new BadRequestError('Некорректный ID пользователя');
-    }
     return res.status(OK).send(User);
   } catch (error) {
+    if (error instanceof CastError) {
+      return next(new BadRequestError('Передан невалидный id'));
+    }
     return next(error);
   }
 };
