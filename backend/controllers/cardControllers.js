@@ -64,8 +64,10 @@ const deleteCard = async (req, res, next) => {
     if (Card.owner.toString() !== req.user._id) {
       return next(new ForbiddenError('Недостаточно прав для удаления'));
     }
-    await Card.deleteOne(req.params.cardId);
-    return res.send({ message: 'Карточка успешно удалена' });
+    await Card.deleteOne(req.params);
+    return res
+      .status(OK)
+      .send({ message: 'Карточка успешно удалена' });
   } catch (error) {
     if (error instanceof CastError) {
       return next(new BadRequestError('Некорректный ID карточки'));
