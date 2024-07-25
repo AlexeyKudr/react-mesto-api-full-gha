@@ -13,8 +13,8 @@ const app = express();
 const { PORT, MONGO_DB } = process.env;
 mongoose
   .connect(MONGO_DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
   });
 app.use(requestLogger);
 app.use(cors);
